@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 /**
@@ -25,7 +26,7 @@ const CharacterCard = ({ character }) => {
 
   return (
     <StyledWrapper>
-      <div className="container noselect">
+      <Link to={`/character/${character.id}`} className="container noselect" style={{ display: 'block', textDecoration: 'none' }}>
         <div className="canvas">
           {Array.from({ length: 25 }, (_, i) => (
             <div key={i} className={`tracker tr-${i + 1}`} />
@@ -72,7 +73,7 @@ const CharacterCard = ({ character }) => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </StyledWrapper>
   );
 };

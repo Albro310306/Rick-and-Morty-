@@ -170,7 +170,7 @@ const Home = () => {
 
         {isActuallyLoading ? (
           <div className="cards-grid">
-            {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
+            {Array.from({ length: 20 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
         ) : (
           <>

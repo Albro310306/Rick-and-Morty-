@@ -1,30 +1,85 @@
 import React from 'react';
+import styled from 'styled-components';
 
+/**
+ * Componente esqueleto para representar una tarjeta de personaje mientras se cargan los datos.
+ * Mantiene la misma dimensión física que la tarjeta real para evitar saltos en la interfaz.
+ */
 const SkeletonCard = () => {
   return (
-    <div className="flex flex-col bg-gray-800 rounded-xl overflow-hidden shadow-lg animate-pulse w-full">
-      {/* Image skeleton */}
-      <div className="skeleton h-64 w-full bg-gray-700"></div>
-      
-      {/* Content skeleton */}
-      <div className="p-5 flex flex-col gap-4">
-        {/* Title skeleton */}
-        <div className="skeleton h-6 w-3/4 bg-gray-700 rounded"></div>
-        
-        {/* Status/Species skeleton */}
-        <div className="flex items-center gap-2">
-          <div className="skeleton h-3 w-3 rounded-full bg-gray-700"></div>
-          <div className="skeleton h-4 w-1/2 bg-gray-700 rounded"></div>
-        </div>
-        
-        {/* Last known location skeleton */}
-        <div className="mt-4 flex flex-col gap-2">
-          <div className="skeleton h-3 w-1/3 bg-gray-700 rounded"></div>
-          <div className="skeleton h-4 w-full bg-gray-700 rounded"></div>
+    <StyledWrapper>
+      <div className="container">
+        <div className="skeleton-card">
+          <div className="img-skeleton" />
+          <div className="text-skeleton title-skeleton" />
+          <div className="text-skeleton subtitle-skeleton" />
         </div>
       </div>
-    </div>
+    </StyledWrapper>
   );
 };
+
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  .container {
+    position: relative;
+    width: 220px;
+    height: 300px;
+  }
+
+  .skeleton-card {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(45deg, rgba(13, 5, 32, 0.5), rgba(26, 10, 60, 0.5));
+    border: 2px solid rgba(139, 92, 246, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .skeleton-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(139,92,246,0.08) 0%, transparent 70%);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .img-skeleton {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(139, 92, 246, 0.15);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .text-skeleton {
+    height: 14px;
+    border-radius: 4px;
+    background: rgba(139, 92, 246, 0.15);
+    animation: pulse 1.5s ease-in-out infinite 0.2s;
+  }
+
+  .title-skeleton {
+    width: 140px;
+    height: 20px;
+  }
+
+  .subtitle-skeleton {
+    width: 90px;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+`;
 
 export default SkeletonCard;

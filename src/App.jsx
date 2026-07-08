@@ -9,9 +9,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <div className="min-h-screen bg-gray-900 text-white font-sans">
+        <div className="min-h-screen text-white font-sans" style={{ background: 'rgba(5, 2, 15, 0.15)' }}>
           <Header />
-          <main className="container mx-auto px-4 py-8">
+          <main>
             <Routes>
               <Route path="/" element={<Home />} />
             </Routes>

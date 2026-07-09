@@ -149,7 +149,6 @@ const Home = () => {
         {!isActuallyLoading && !isError && data?.info && (
           <div className="flex flex-col sm:flex-row justify-between items-center mb-8 pb-4 border-b border-white/10 text-sm font-bold text-white/40 tracking-wider">
             <span>{data.info.count} personajes encontrados</span>
-            {data.info.pages > 1 && <span>· Página {pageFilter} de {data.info.pages}</span>}
           </div>
         )}
 
@@ -164,12 +163,6 @@ const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
                   {data.results.map(c => <CharacterCard key={c.id} character={c} />)}
                 </div>
-                <Pagination
-                  currentPage={pageFilter}
-                  totalPages={data.info?.pages || 1}
-                  onPrev={() => goToPage(pageFilter - 1)}
-                  onNext={() => goToPage(pageFilter + 1)}
-                />
               </>
             ) : (
               !isError && (

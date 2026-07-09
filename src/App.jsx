@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
-import CharacterDetail from './components/pages/CharacterDetail';
+import CharacterDetail from './components/pages/CharacterInformation/CharacterDetail';
 import Header from './components/sections/Header';
 
 const queryClient = new QueryClient();

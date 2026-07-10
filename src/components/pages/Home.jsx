@@ -9,6 +9,7 @@ import CharacterCard from '../ui/CharacterCard';
 import SkeletonCard from '../ui/SkeletonCard';
 import SearchInput from '../ui/SearchInput';
 import Pagination from '../ui/Pagination';
+import { useToast } from '../ui/ToastContext';
 import { AlertTriangle, Search, Circle, Star, X } from 'lucide-react';
 
 const searchSchema = z.object({
@@ -28,12 +29,16 @@ const Home = () => {
   const pageFilter = parseInt(searchParams.get('page') || '1', 10);
   const [showSkeletons, setShowSkeletons] = useState(false);
 
-  const { register, watch } = useForm({
+  const { register, watch, reset } = useForm({
     resolver: zodResolver(searchSchema),
     defaultValues: { search: nameFilter },
   });
 
   const searchValue = watch('search');
+
+  useEffect(() => {
+    reset({ search: nameFilter });
+  }, [nameFilter, reset]);
 
   useEffect(() => {
     if (searchValue === nameFilter) return;
@@ -68,6 +73,14 @@ const Home = () => {
     queryFn: () => fetchCharacters(nameFilter, statusFilter, pageFilter),
     retry: false,
   });
+
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    if (isError) {
+      addToast({ message: error?.message || 'Error al cargar personajes', type: 'error', duration: 5000 });
+    }
+  }, [isError, error, addToast]);
 
   useEffect(() => {
     if (isLoading) {

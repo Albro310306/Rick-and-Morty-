@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { teamSchema } from '../utils/teamSchema';
 import { useTeam, useTeamMutations } from '../hooks/useTeams';
 import { fetchCharacters, fetchMultipleCharacters } from '../../../api/rickAndMorty';
+import { useToast } from '../../../components/ui/ToastContext';
 import CharacterSearchCard from '../components/CharacterSearchCard';
 import CharacterSearchCardSkeleton from '../components/CharacterSearchCardSkeleton';
 
@@ -29,12 +30,20 @@ const TeamFormPage = () => {
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
-  const { data: searchResults, isFetching: isSearching } = useQuery({
+  const { data: searchResults, isFetching: isSearching, isError: isSearchError, error: searchError } = useQuery({
     queryKey: ['searchCharacters', debouncedSearch],
     queryFn: () => fetchCharacters(debouncedSearch),
     enabled: debouncedSearch.length >= 2,
     staleTime: 60000,
   });
+
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    if (isSearchError) {
+      addToast({ message: searchError?.message || 'Error al buscar personajes', type: 'error', duration: 4000 });
+    }
+  }, [isSearchError, searchError, addToast]);
 
   const { data: selectedCharsData } = useQuery({
     queryKey: ['selectedCharsForm', charIds],
@@ -157,6 +166,14 @@ const TeamFormPage = () => {
                       />
                     );
                   })
+                ) : isSearchError ? (
+                  <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/30 p-3 rounded-xl text-red-400 text-sm">
+                    <svg className="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+                    <div>
+                      <p className="font-bold">Error al buscar personajes</p>
+                      <p className="opacity-80 text-xs">{searchError?.message}</p>
+                    </div>
+                  </div>
                 ) : (
                   <p className="text-white/50 text-sm text-center py-4">No se encontraron personajes con ese nombre.</p>
                 )}

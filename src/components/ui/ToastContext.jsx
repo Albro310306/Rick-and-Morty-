@@ -38,9 +38,11 @@ export const ToastProvider = ({ children }) => {
           {toasts.map((toast) => (
             <motion.div
               key={toast.id}
-              initial={{ opacity: 0, y: 50, scale: 0.3 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+              initial={{ opacity: 0, x: 80, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1, transition: { type: 'spring', stiffness: 350, damping: 28 } }}
+              exit={{ opacity: 0, x: 80, scale: 0.95, transition: { duration: 0.18 } }}
+              role="status"
+              aria-live="polite"
               className={`px-4 py-3 rounded-lg shadow-lg text-white font-semibold flex items-center justify-between min-w-[250px] ${
                 toast.type === 'success' ? 'bg-green-500/90 border border-green-400' : 'bg-red-500/90 border border-red-400'
               } backdrop-blur-md`}

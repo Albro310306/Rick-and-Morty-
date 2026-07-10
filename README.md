@@ -1,3 +1,49 @@
+# Rick and Morty App — Estructura y Modularización
+
+Resumen rápido sobre dónde está implementada la modularización (features, hooks personalizados), componentes UI reutilizables y cómo probar el manejo de errores.
+
+## Estructura relevante
+- `src/features/` — Carpetas por *feature* (ej. `teams`). Cada feature agrupa páginas, componentes y hooks relacionados.
+  - Ejemplo: [src/features/teams](src/features/teams)
+- `src/features/teams/hooks/useTeams.js` — Hooks personalizados para queries y mutaciones (`useTeams`, `useTeam`, `useTeamMutations`).
+  - Archivo: [src/features/teams/hooks/useTeams.js](src/features/teams/hooks/useTeams.js)
+- `src/api/` — Capa API centralizada (llamadas a servicios externos). Ej: [src/api/rickAndMorty.js](src/api/rickAndMorty.js)
+- `src/components/ui/` — Componentes UI reutilizables (cards, pagination, skeletons, `ToastContext`).
+  - Toasts y contexto: [src/components/ui/ToastContext.jsx](src/components/ui/ToastContext.jsx)
+- `src/components/pages/` y `src/components/sections/` — Páginas y secciones reutilizables (ej. `Home`, `Header`, `FloatingNav`).
+
+## Hooks personalizados y slices conceptuales
+- Hooks centrales encontrados:
+  - `useTeams`, `useTeam`, `useTeamMutations` — [src/features/teams/hooks/useTeams.js](src/features/teams/hooks/useTeams.js)
+  - `useToast` — desde [src/components/ui/ToastContext.jsx](src/components/ui/ToastContext.jsx)
+
+Nota: no se usa Redux en este repo; el patrón "slices" está implementado de forma modular por feature folders (cada feature actúa como slice lógico: api, hooks, components, pages).
+
+## UI reutilizable
+- Componentes en: [src/components/ui](src/components/ui)
+  - `CharacterCard`, `Pagination`, `SkeletonCard`, `SearchInput`, `ToastContext`.
+
+## Manejo de errores y cómo probarlo
+- Se añadió una simulación de fallo en la API (buscar exactamente `simulate-error`) en:
+  - [src/api/rickAndMorty.js](src/api/rickAndMorty.js)
+- Alternativamente, la URL de la API fue cambiada temporalmente a un host inválido para forzar errores de red.
+
+Pasos para reproducir el fallo en tu entorno local:
+```bash
+npm install
+npm run dev
+```
+- Abre `http://localhost:5173` (puede variar según Vite). En la página principal, escribe `simulate-error` en la búsqueda y espera: verás el banner inline (en `Home` o en `TeamFormPage`) y un toast deslizante con el mensaje de error.
+
+## Notas sobre accesibilidad y UX
+- Los toasts ahora usan animación de deslizamiento (slide-in desde la derecha) y tienen `role="status"` y `aria-live="polite"` para anunciarse a lectores de pantalla.
+
+Si quieres, puedo:
+- Ajustar la duración/velocidad de la animación.
+- Restaurar la URL real de la API (cuando termines de probar).
+
+---
+Archivo generado automáticamente para documentación básica del proyecto.
 # Rick and Morty App - Multiverso Explorer (Nivel 3)
 
 Esta aplicación es un proyecto React avanzado que consume la API de Rick and Morty y cuenta con un CRUD completo utilizando un servidor local (JSON Server).

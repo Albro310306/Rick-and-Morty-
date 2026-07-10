@@ -16,10 +16,17 @@ const SearchInput = ({ register, currentStatus = '', onStatusChange }) => {
   const [open, setOpen] = useState(false);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
   const filterRef = useRef(null);
+  const portalRef = useRef(null);
 
   useEffect(() => {
     const handler = (e) => {
-      if (filterRef.current && !filterRef.current.contains(e.target)) {
+      const target = e.target;
+      if (
+        filterRef.current &&
+        !filterRef.current.contains(target) &&
+        portalRef.current &&
+        !portalRef.current.contains(target)
+      ) {
         setOpen(false);
       }
     };
@@ -82,6 +89,7 @@ const SearchInput = ({ register, currentStatus = '', onStatusChange }) => {
       {open &&
         ReactDOM.createPortal(
           <div
+            ref={portalRef}
             className="fixed z-[1000] bg-[#0c0716] border border-purple-500/30 rounded-xl p-2 w-48 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl animate-[slide-in_0.3s_cubic-bezier(0.175,0.885,0.32,1.275)]"
             style={{
               top: dropdownPos.top,

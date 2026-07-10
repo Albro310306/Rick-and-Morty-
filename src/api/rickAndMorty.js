@@ -1,4 +1,6 @@
 const API_URL = "https://rickandmortyapi.com/api/character";
+//const API_URL = "https://rickandmortyapi-invalida-123.com/api/character";
+
 
 /**
  * Obtiene la lista de personajes con filtros opcionales y paginación.

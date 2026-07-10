@@ -1,74 +1,47 @@
-# Rick and Morty API Endpoints
+# Rick and Morty App - Multiverso Explorer (Nivel 3)
 
-## Base URL
-`https://rickandmortyapi.com/api`
+Esta aplicación es un proyecto React avanzado que consume la API de Rick and Morty y cuenta con un CRUD completo utilizando un servidor local (JSON Server).
 
-## 1. Personajes (Characters)
+## Tecnologías Utilizadas
 
-- **Listar personajes:**
-  `GET /character`
+- **React 19**
+- **React-Router v7** para navegación y manejo de layouts.
+- **React Query** para fetching y cacheo de datos.
+- **Axios** para mutaciones del CRUD.
+- **React Hook Form** junto a **Zod** para manejo y validación de formularios.
+- **Tailwind CSS V.3** para estilos modernos y responsivos.
+- **Framer Motion** para transiciones y animaciones fluidas.
+- **JSON Server** para la simulación de un backend local.
 
-- **Detalle de un personaje:**
-  `GET /character/1`
+## Características de Nivel 3
 
-- **Varios personajes:**
-  `GET /character/1,2,3`
+- **CRUD de Equipos:** Permite Crear, Listar, Ver Detalle, Editar y Eliminar equipos personalizados ("Teams").
+- **Manejo de Errores Personalizado:** Sistema de notificaciones (Toasts) globales implementado con Context API.
+- **Integración con 2 APIs:** El detalle del equipo combina los datos guardados en el `json-server` (nombres y IDs) cruzándolos con la API oficial de Rick & Morty para cargar la información real de los personajes de ese equipo.
+- **Modularización Avanzada:** Arquitectura basada en Features (`src/features/teams`), custom hooks para lógica de mutaciones (`useTeams`) y schemas independientes.
+- **Animaciones:** Se incorporó Framer Motion para entradas suaves de tarjetas, notificaciones y carga de página.
 
-- **Paginación:**
-  `GET /character/?page=2`
+## Instalación y Ejecución
 
-- **Filtros:**
-  - `GET /character/?name=rick`
-  - `GET /character/?status=alive`
-  - `GET /character/?name=rick&status=alive`
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
-  **Filtros disponibles:**
-  - `name`
-  - `status`
-  - `species`
-  - `type`
-  - `gender`
+2. Levantar servidor local (JSON Server) y Vite (Frontend) simultáneamente:
+   ```bash
+   npm run dev:all
+   ```
 
-## 2. Ubicaciones (Locations)
+   - El **frontend** se ejecutará en el puerto de Vite (ej. `http://localhost:5173`).
+   - El **backend** local se ejecutará en `http://localhost:3001` (leyendo el archivo `server/db.json`).
 
-- **Listar ubicaciones:**
-  `GET /location`
+## Arquitectura de Carpetas Destacada
 
-- **Detalle de una ubicación:**
-  `GET /location/1`
+- `/server/db.json` -> Base de datos local.
+- `/src/features/teams` -> Contiene toda la lógica del CRUD de equipos (api, hooks, pages, schemas).
+- `/src/components/ui/ToastContext.jsx` -> Proveedor de notificaciones global.
 
-- **Varias ubicaciones:**
-  `GET /location/1,2,3`
-
-- **Filtros:**
-  - `GET /location/?name=earth`
-  - `GET /location/?type=planet`
-  - `GET /location/?dimension=Dimension C-137`
-
-  **Filtros disponibles:**
-  - `name`
-  - `type`
-  - `dimension`
-
-## 3. Episodios (Episodes)
-
-- **Listar episodios:**
-  `GET /episode`
-
-- **Detalle de un episodio:**
-  `GET /episode/1`
-
-- **Varios episodios:**
-  `GET /episode/1,2,3`
-
-- **Filtros:**
-  - `GET /episode/?name=pilot`
-  - `GET /episode/?episode=S01E01`
-
-  **Filtros disponibles:**
-  - `name`
-  - `episode`
-
----
-> **Nota para el proyecto:**
-> Utilizaremos el endpoint `https://rickandmortyapi.com/api/character` para mostrar los personajes en la vista principal y la vista detalle, aplicando paginación y filtros por nombre.
+## Endpoints Originales (Referencia)
+- API Rick and Morty: `https://rickandmortyapi.com/api`
+- Personajes: `GET /character`

@@ -1,0 +1,16 @@
+{
+  "teams": [
+    {
+      "name": "Los Vengadores del Multiverso",
+      "description": "El equipo de élite para proteger la dimensión C-137.",
+      "characterIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "id": "1"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

@@ -61,3 +61,18 @@ export const fetchLocationByUrl = async (url) => {
   if (!response.ok) return null;
   return response.json();
 };
+
+/**
+ * Obtiene múltiples personajes por sus IDs.
+ * @param {Array<number|string>} ids - Arreglo de IDs de personajes.
+ */
+export const fetchMultipleCharacters = async (ids) => {
+  if (!ids || ids.length === 0) return [];
+  const response = await fetch(`${API_URL}/${ids.join(',')}`);
+  if (!response.ok) {
+    throw new Error('Error al obtener los personajes');
+  }
+  const data = await response.json();
+  // La API devuelve un array si hay múltiples, pero un objeto si es solo 1 ID
+  return Array.isArray(data) ? data : [data];
+};

@@ -9,6 +9,7 @@ import CharacterCard from '../ui/CharacterCard';
 import SkeletonCard from '../ui/SkeletonCard';
 import SearchInput from '../ui/SearchInput';
 import Pagination from '../ui/Pagination';
+import { AlertTriangle, Search, Circle, Star, X } from 'lucide-react';
 
 const searchSchema = z.object({
   search: z.string().optional(),
@@ -111,22 +112,22 @@ const Home = () => {
             <div className="flex flex-wrap justify-center gap-3 mt-6">
               {nameFilter && (
                 <span className="flex items-center gap-2 bg-purple-500/20 border border-purple-500/40 text-purple-200 px-4 py-1.5 rounded-full text-sm font-semibold shadow-[0_0_12px_rgba(139,92,246,0.3)] animate-slide-in">
-                  🔍 "{nameFilter}"
-                  <button className="text-white hover:text-red-400" onClick={() => {
+                  <Search className="w-4 h-4" /> "{nameFilter}"
+                  <button className="text-white hover:text-red-400 flex items-center" onClick={() => {
                     const p = {};
                     if (statusFilter) p.status = statusFilter;
                     setSearchParams(p);
-                  }}>✕</button>
+                  }}><X className="w-4 h-4" /></button>
                 </span>
               )}
               {statusFilter && (
                 <span className="flex items-center gap-2 bg-orange-500/20 border border-orange-500/40 text-orange-200 px-4 py-1.5 rounded-full text-sm font-semibold shadow-[0_0_12px_rgba(249,115,22,0.3)] animate-slide-in">
-                  {statusFilter === 'alive' ? '🟢' : statusFilter === 'dead' ? '🔴' : '⚪'} {STATUS_LABELS[statusFilter]}
-                  <button className="text-white hover:text-red-400" onClick={() => {
+                  <Circle className={`w-3 h-3 fill-current ${statusFilter === 'alive' ? 'text-green-500' : statusFilter === 'dead' ? 'text-red-500' : 'text-gray-300'}`} /> {STATUS_LABELS[statusFilter]}
+                  <button className="text-white hover:text-red-400 flex items-center" onClick={() => {
                     const p = {};
                     if (nameFilter) p.name = nameFilter;
                     setSearchParams(p);
-                  }}>✕</button>
+                  }}><X className="w-4 h-4" /></button>
                 </span>
               )}
             </div>
@@ -138,7 +139,7 @@ const Home = () => {
       <section className="max-w-[1400px] mx-auto px-6 relative z-10">
         {isError && (
           <div className="flex items-center gap-4 bg-red-500/10 border border-red-500/30 p-6 rounded-2xl max-w-lg mx-auto my-12 text-red-400 animate-shake">
-            <span className="text-4xl">⚠️</span>
+            <AlertTriangle className="w-10 h-10" />
             <div>
               <p className="font-bold text-lg mb-1">Error al cargar datos</p>
               <p className="text-sm opacity-80">{error.message}</p>
@@ -174,7 +175,9 @@ const Home = () => {
             ) : (
               !isError && (
                 <div className="text-center py-20 px-6 bg-black/40 backdrop-blur-md rounded-3xl border border-white/5 max-w-2xl mx-auto shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]">
-                  <p className="text-6xl mb-6 animate-pulse drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">🌌</p>
+                  <div className="flex justify-center mb-6 animate-pulse drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
+                    <Star className="w-16 h-16 text-white" />
+                  </div>
                   <h3 className="text-2xl font-bold text-white mb-2">Ningún personaje encontrado</h3>
                   <p className="text-white/40 mb-8">Prueba con otra búsqueda o cambia el filtro de estado</p>
                   <button 
